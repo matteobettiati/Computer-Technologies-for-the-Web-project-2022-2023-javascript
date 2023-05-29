@@ -16,16 +16,16 @@
 				function(x) {
 
 					if (x.readyState == XMLHttpRequest.DONE) {
-						let message = x.responseText;
+						let user = x.responseText;
 						switch (x.status) {
 							//If ok -> set the userName in the session
 							case 200:
-								sessionStorage.setItem('username', message);
+								sessionStorage.setItem('currentUser', user);
 								window.location.href = "homepage.html";
 								break;
 							//If ko -> show the error
 							default:
-								document.getElementById("error").textContent = message;
+								document.getElementById("error").textContent = user;
 								break;
 						}
 					}

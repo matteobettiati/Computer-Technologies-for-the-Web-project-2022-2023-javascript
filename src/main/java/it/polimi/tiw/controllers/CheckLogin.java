@@ -41,12 +41,12 @@ public class CheckLogin extends HttpServlet {
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// Take the form fields
-		String userName = StringEscapeUtils.escapeJava(request.getParameter("user"));
+		String username = StringEscapeUtils.escapeJava(request.getParameter("user"));
 		String password = StringEscapeUtils.escapeJava(request.getParameter("password"));
 
 		// check if the parameters are not empty or null -> if not, send the error and
 		// set the status of the response
-		if (userName == null || password == null || userName.isEmpty() || password.isEmpty()) {
+		if (username == null || password == null || username.isEmpty() || password.isEmpty()) {
 			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);// Code 400
 			response.getWriter().println("Missing parameters;");
 			return;
@@ -56,19 +56,19 @@ public class CheckLogin extends HttpServlet {
 		User user = null;
 
 		try {
-			user = userDao.checkUser(userName, password);
+			user = userDao.checkUser(username, password);
 			if (user != null) {
-				// Set the session and send the userName back
+				// Set the session and send the username back
 				request.getSession().setAttribute("user", user);
 				// To reduce the session time
 				// request.getSession().setMaxInactiveInterval(1);
 				response.setStatus(HttpServletResponse.SC_OK);// Code 200
 				response.setContentType("application/json");
 				response.setCharacterEncoding("UTF-8");
-				response.getWriter().println(userName);
+				response.getWriter().println(username);
 			} else {
 				response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);// Code 401
-				response.getWriter().println("Username e/o password are incorrect;");
+				response.getWriter().println("username e/o password are incorrect;");
 			}
 		} catch (SQLException e) {
 			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);// Code 500
