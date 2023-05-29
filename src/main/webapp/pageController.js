@@ -8,8 +8,8 @@
 		if (sessionStorage.getItem("currentUser") == null) {
 			window.location.href = "login.html";
 		} else {
-			PageHandler.start();
-			PageHandler.refresh();
+			pageHandler.start();
+			//PageHandler.refresh();
 		}
 	}, false);
 
@@ -24,7 +24,7 @@
 		this.messageContainer = messageContainer;
 
 		this.show = function() {
-			this.messageContainer.textContent = this.username;
+			this.messageContainer.textContent = this.currentUser;
 		}
 
 	}
