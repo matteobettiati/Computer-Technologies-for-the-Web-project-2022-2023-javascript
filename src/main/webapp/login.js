@@ -1,20 +1,22 @@
 /**
  * Login
  */
-(function() {
-	document.getElementById("loginButton").addEventListener('click', (e) => {
-
+(function () {
+	document.getElementById("loginForm").onsubmit = (e) =>{
+		e.preventDefault();
 		console.log("Login event!");
-		//Take the closest form
-		let form = e.target.closest("form");
-
+		
+		
+		let form = document.getElementById("loginForm");
+		
+	
 		//Check if the form is valid -> every field is been filled
 		if (form.checkValidity()) {
-
+	
 			//Make the call to the server
 			makeCall("POST", 'CheckLogin', form,
 				function(x) {
-
+	
 					if (x.readyState == XMLHttpRequest.DONE) {
 						let user = x.responseText;
 						switch (x.status) {
@@ -33,6 +35,7 @@
 			);
 		} else {
 			form.reportValidity();
-		}
-	});
+			
+		};
+	};
 })();

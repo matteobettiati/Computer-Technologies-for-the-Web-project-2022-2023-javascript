@@ -15,7 +15,7 @@
 			window.location.href = "login.html";
 		} else {
 			pageHandler.start();
-			//PageHandler.refresh();
+			//pageHandler.refresh();
 		}
 	}, false);
 
@@ -32,7 +32,9 @@
 		}
 
 	}
-	
+
+
+
 	/**
 	 * handle the entire page
 	 */
@@ -40,9 +42,9 @@
 		this.start = function() {
 			personalMessage = new PersonalMessage(sessionStorage.getItem("currentUser"), document.getElementById("currentUser"));
 			personalMessage.show();
-		}
+				
+			}
 
 	}
 
 }
-
