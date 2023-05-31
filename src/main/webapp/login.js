@@ -14,7 +14,7 @@
 		if (form.checkValidity()) {
 	
 			//Make the call to the server
-			makeCall("POST", 'CheckLogin', form,
+			makeCall("POST", 'CheckLoginjs', form,
 				function(x) {
 	
 					if (x.readyState == XMLHttpRequest.DONE) {

@@ -120,8 +120,8 @@ public class SongDAO {
 		return songID;
 	}
 	
-	public List<Song> getSongsByUser(int userID) throws SQLException {
-		List<Song> songs = new ArrayList<>();
+	public List<String> getSongsByUser(int userID) throws SQLException {
+		List<String> songs = new ArrayList<>();
 		String query = "SELECT title FROM song WHERE userID = ?";
 		ResultSet result = null;
 		PreparedStatement pstatement = null;
@@ -133,7 +133,7 @@ public class SongDAO {
 			while (result.next()) {
 				Song song = new Song();
 				song.setTitle(result.getString("title"));
-				songs.add(song);
+				songs.add(song.getTitle());
 			}
 
 		} catch (SQLException e) {

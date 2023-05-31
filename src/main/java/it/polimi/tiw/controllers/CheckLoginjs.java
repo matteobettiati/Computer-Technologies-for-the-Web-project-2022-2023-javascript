@@ -19,15 +19,11 @@ import it.polimi.tiw.beans.User;
 import it.polimi.tiw.dao.UserDAO;
 import it.polimi.tiw.utils.*;
 
-@WebServlet("/CheckLogin")
+@WebServlet("/CheckLoginjs")
 @MultipartConfig
-public class CheckLogin extends HttpServlet {
+public class CheckLoginjs extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private Connection connection;
-
-	public CheckLogin() {
-		super();
-	}
 
 	public void init() {
 		ServletContext context = getServletContext();
@@ -59,7 +55,7 @@ public class CheckLogin extends HttpServlet {
 			user = userDao.checkUser(username, password);
 			if (user != null) {
 				// Set the session and send the username back
-				request.getSession().setAttribute("user", user);
+				request.getSession().setAttribute("currentUser", user);
 				// To reduce the session time
 				// request.getSession().setMaxInactiveInterval(1);
 				response.setStatus(HttpServletResponse.SC_OK);// Code 200

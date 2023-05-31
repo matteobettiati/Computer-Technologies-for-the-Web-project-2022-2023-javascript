@@ -8,27 +8,28 @@
 	href="CSS/mystyle.css" />-->
 <script src="utils.js" charset="utf-8" defer></script>
 <script src="pageController.js" charset="utf-8" defer></script>
-<!--<script src="createPlaylist.js" charset="utf-8" defer></script>
-<script src="createSong.js" charset="utf-8" defer></script>
-<script src="addSong.js" charset="utf-8" defer></script>
+<script src="createPlaylistForm.js" charset="utf-8" defer></script>
+<script src="uploadSong.js" charset="utf-8" defer></script>
+<!--<script src="addSong.js" charset="utf-8" defer></script>
 <script src="confirmNewSorting.js" charset="utf-8" defer></script>
 <script src="d&dSorting.js" charset="utf-8" defer></script>-->
 
 </head>
 
 <body>
-	<h1>Home page</h1>
-	<h2>
-		Nice to see you again <span id="currentUser"></span>
-	</h2>
-	<div class="logout">
+
+	<div class="logout" id="logout">
 		<a href="Logout">Logout</a>
 	</div>
+
 	<br>
 
 	<div class="homepage" id="homepage">
-
-		<table class="playlistBox" id="playlistBox">
+		<h1>Home page</h1>
+		<h2>
+			Nice to see you again <span id="currentUser"></span>
+		</h2>
+		<table class="playlistsContainer" id="playlistsContainer">
 			<thead class="playlistTableHead" id="playlistTableHead">
 				<tr>
 					<th>PlayList name</th>
@@ -36,20 +37,26 @@
 				</tr>
 			</thead>
 
-			<tbody class="playlistTableBody" id="playlistsBody">
+			<tbody class="playlistTableBody" id="playlistsContainerBody">
 			</tbody>
 		</table>
+
 		<p id="playListTableMessage"></p>
-		<p class="error" id="playlistsError"></p>
+		<p class="error" id="alertContainer"></p>
 
 		<br> <br>
 
-		<fieldset class="createPlaylistField">
+		<fieldset>
 			<form action="#">
 				Create a new playList<br>
 				<p>
-					Title: <input type="text" id="name" name="name" required>
+					Title: <input type="text" id="playlistTitle" name="playlistTitle"
+						required>
 				</p>
+				<fieldset id="checkBoxContainer"
+					style="max-height: 100px; overflow-y: scroll;">
+					</fieldset>
+				<p class="error" id="songsToAddError"></p>
 				<p>
 					<input type="button" id="createPlaylistButton" value="submit">
 				</p>
@@ -67,10 +74,11 @@
 				</p>
 				<p>
 					Genre: <select id="genre" name="genre" required>
-						<option value="Dance">Dance</option>
+						<option value="Classic">Classic</option>
 						<option value="Pop">Pop</option>
 						<option value="Rap">Rap</option>
 						<option value="Rock">Rock</option>
+						<option value="Jazz">Jazz</option>
 					</select>
 				</p>
 				<p>
@@ -78,7 +86,7 @@
 						required>
 				</p>
 				<p>
-					Singer: <input type="text" id="singer" name="singer" required>
+					Author: <input type="text" id="author" name="author" required>
 				</p>
 				<p>
 					Album publication year: <input type="number" id="date" name="date"
@@ -93,7 +101,7 @@
 						accept="audio/*" required>
 				</p>
 				<p>
-					<input type="button" id="createSongButton" value="submit">
+					<input type="button" id="uploadSongButton" value="submit">
 				</p>
 				<p class="error" id="songError">
 			</form>

@@ -3,6 +3,8 @@
 	 * variables
 	 */
 	var welcomeMessage;
+	var playlists;
+	var playlistForm;
 	var pageHandler = new PageHandler();
 
 	/**
@@ -30,19 +32,10 @@
 
 	}
 
-	function Playlists(playlistsError, playlistBox, playlistsBody) {
-		this.playlistsError = playlistsError;
-		this.playlistBox = playlistBox;
-		this.playlistsBody = playlistsBody;
-
-		this.reset = function() {
-			this.listContainer.style.disply = "none";
-			this.alertContainer.textContent = "";
-		}
-
-		this.setVisible = function() {
-			this.listContainer.style.display = "";
-		}
+	function Playlists(alertContainer, playlistsContainer, playlistsContainerBody) {
+		this.alertContainer = alertContainer;
+		this.playlistsContainer = playlistsContainer;
+		this.playlistsContainerBody = playlistsContainerBody;
 
 		this.show = function() {
 			let self = this;
@@ -63,7 +56,7 @@
 									return;
 								}
 								document.getElementById("playListTableMessage").textContent = "";
-								self.playlistsError.textContent = "";
+								self.alertContainer.textContent = "";
 
 								playlistsUpdate(playlistsToShow);
 
@@ -89,7 +82,7 @@
 		var divs = document.getElementsByTagName("div");
 		for (var i = 0; i < divs.length; i++) {
 			var div = divs[i];
-			if (div.id === "homepage") {
+			if (div.id === "homepage" || div.id === "logout") {
 				div.style.display = "block";
 			} else {
 				div.style.display = "none";
@@ -98,8 +91,8 @@
 	}
 
 	function playlistsUpdate(playlistToShow) {
-		var table = document.getElementById("playlistBox");
-		var tbody = document.getElementById("playlistsBody");
+		var table = document.getElementById("playlistsContainer");
+		var tbody = document.getElementById("playlistsContainerBody");
 
 		var newRow = document.createElement("tr");
 
@@ -121,9 +114,55 @@
 		});
 
 		tbody.appendChild(newRow);
-
 	}
 
+	function PlaylistForm() {
+		this.show = function() {
+			var checkBoxContainer = document.getElementById("checkBoxContainer");
+
+			makeCall("GET", "GetSongs", null,
+				function(request) {
+					if (request.readyState == XMLHttpRequest.DONE) {
+
+						switch (request.status) {
+							case 200:
+								let songsToShow = JSON.parse(request.responseText);
+
+								if (songsToShow.length == 0) {
+									document.getElementById("songsToAddError").textContent = "No songs yet";
+									return;
+								}
+								songsToShow.forEach(function(song) {
+									var label = document.createElement("label");
+									var checkbox = document.createElement("input");
+									checkbox.type = "checkbox";
+									checkbox.value=song;	
+									checkbox.name="selectedSongs";
+									checkbox.id="song";
+									label.appendChild(checkbox);
+									label.appendChild(document.createTextNode(song));
+									checkBoxContainer.appendChild(label);
+								})
+
+								break;
+
+							case 403:
+								//Redirect to login.html and remove the username from the session
+								window.location.href = request.getResponseHeader("Location");
+								window.sessionStorage.removeItem("userName");
+								break;
+
+							default:
+								alert("Default");
+								self.alertContainer.textContent = request.responseText;
+						}
+					}
+				}
+			);
+
+		}
+
+	}
 
 	/**
 	 * handle the entire page
@@ -135,16 +174,12 @@
 			welcomeMessage = new WelcomeMessage(sessionStorage.getItem("currentUser"), document.getElementById("currentUser"));
 			welcomeMessage.show();
 
-			playlists = new Playlists(document.getElementById("playlistsError"),
-				document.getElementById("playlistBox"), document.getElementById("playlistsBody"));
-
+			playlists = new Playlists(document.getElementById("alertContainer"),
+				document.getElementById("playlistsContainer"), document.getElementById("playlistsContainerBody"));
 			playlists.show();
 
-
-
+			playlistForm = new PlaylistForm(document.getElementById("checkBoxContainer"));
+			playlistForm.show();
 		}
-
-
 	}
-
 }
