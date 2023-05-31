@@ -28,4 +28,51 @@
 		<nature>org.eclipse.jdt.core.javanature</nature>
 		<nature>org.eclipse.wst.jsdt.core.jsNature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>src/main/webapp/WEB-INF/lib/apache-commons-lang.jar</name>
+			<type>1</type>
+			<locationURI>PARENT-2-PROJECT_LOC/Downloads/jars/apache-commons-lang.jar</locationURI>
+		</link>
+		<link>
+			<name>src/main/webapp/WEB-INF/lib/attoparser-2.0.6.RELEASE.jar</name>
+			<type>1</type>
+			<locationURI>PARENT-2-PROJECT_LOC/Downloads/jars/attoparser-2.0.6.RELEASE.jar</locationURI>
+		</link>
+		<link>
+			<name>src/main/webapp/WEB-INF/lib/commons-io-2.10.0.jar</name>
+			<type>1</type>
+			<locationURI>PARENT-2-PROJECT_LOC/Downloads/jars/commons-io-2.10.0.jar</locationURI>
+		</link>
+		<link>
+			<name>src/main/webapp/WEB-INF/lib/gson-2.8.6.jar</name>
+			<type>1</type>
+			<locationURI>PARENT-2-PROJECT_LOC/Downloads/jars/gson-2.8.6.jar</locationURI>
+		</link>
+		<link>
+			<name>src/main/webapp/WEB-INF/lib/java-json.jar</name>
+			<type>1</type>
+			<locationURI>PARENT-2-PROJECT_LOC/Downloads/jars/java-json.jar</locationURI>
+		</link>
+		<link>
+			<name>src/main/webapp/WEB-INF/lib/mysql-connector-j-8.0.32.jar</name>
+			<type>1</type>
+			<locationURI>PARENT-2-PROJECT_LOC/Downloads/jars/mysql-connector-j-8.0.32.jar</locationURI>
+		</link>
+		<link>
+			<name>src/main/webapp/WEB-INF/lib/ognl-2.7.3.jar</name>
+			<type>1</type>
+			<locationURI>PARENT-2-PROJECT_LOC/Downloads/jars/ognl-2.7.3.jar</locationURI>
+		</link>
+		<link>
+			<name>src/main/webapp/WEB-INF/lib/slf4j-api-2.0.7.jar</name>
+			<type>1</type>
+			<locationURI>PARENT-2-PROJECT_LOC/Downloads/jars/slf4j-api-2.0.7.jar</locationURI>
+		</link>
+		<link>
+			<name>src/main/webapp/WEB-INF/lib/unbescape-1.1.6.RELEASE.jar</name>
+			<type>1</type>
+			<locationURI>PARENT-2-PROJECT_LOC/Downloads/jars/unbescape-1.1.6.RELEASE.jar</locationURI>
+		</link>
+	</linkedResources>
 </projectDescription>
