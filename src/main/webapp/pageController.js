@@ -7,6 +7,7 @@
 	var playlistForm;
 	var playlistSongsToOrder;
 	var songsInPlaylist;
+	var songsNotInPlaylist;
 	var nextButton;
 	var previousButton;
 	var sortingList;
@@ -101,7 +102,7 @@
 		}
 
 		this.show = function() {
-			this.messageContainer.textContent = "PlayList: " + this.playlistName;
+			this.messageContainer.textContent = "playlist: " + this.playlistName;
 			this.messageContainer.style.display = "";
 		}
 
@@ -414,6 +415,8 @@
 				imageCell.appendChild(image);
 
 				image.src = songToShow.base64String;
+				
+				image.classList.add("songsImage");
 
 				anchor = document.createElement("a");
 				songNameCell.appendChild(anchor);
@@ -434,6 +437,82 @@
 
 
 	}
+	
+	function SongsNotInPlaylist(alertContainer, listFieldset, listContainer, select) {
+		this.alertContainer = alertContainer;
+		this.listFieldset = listFieldset;
+		this.listContainer = listContainer;
+		this.select = select;
+		this.playlistId = null;
+
+		this.reset = function() {
+			this.listContainer.style.display = "none";
+			this.alertContainer.textContent = "";
+		}
+
+		this.setVisible = function() {
+			this.listContainer.style.display = ""
+		}
+
+		this.show = function(playlistId) {
+			this.playlistId = playlistId;
+			let self = this;
+
+			makeCall("GET", "GetSongsNotInPlaylist?playlistId=" + playlistId, null,
+				function(request) {
+					if (request.readyState == XMLHttpRequest.DONE) {
+
+						switch (request.status) {
+							case 200:
+								let songs = JSON.parse(request.responseText);
+								console.log(songs);
+								if (songs.length == 0) {
+									self.listFieldset.style.display = "none";
+									document.getElementById("addSongMessage").textContent = "All songs already in this playList";
+									return;
+								}
+								document.getElementById("addSongMessage").textContent = "";
+								self.update(songs);
+								break;
+
+							case 403:
+								//Redirect to login.html and remove the username from the session
+								window.location.href = request.getResponseHeader("Location");
+								window.sessionStorage.removeItem("userName");
+								break;
+
+							default:
+								self.alertContainer.textContent = request.responseText;
+								break;
+						}
+					}
+				}
+			);
+		}
+
+		this.update = function(songsToShow) {
+
+			let option;
+
+			this.select.innerHTML = "";
+
+			let self = this;
+
+			//Add an option for each song
+			songsToShow.forEach(function(songToShow) {
+				option = document.createElement("option");
+				option.setAttribute("value", songToShow.idSong);
+				option.appendChild(document.createTextNode(songToShow.title));
+				self.select.appendChild(option);
+			});
+			this.listFieldset.style.display = "";
+			this.listContainer.style.display = "";
+		}
+	}
+	
+	
+	
+	
 
 
 	function SortingList(alertContainer, divContainer, listContainer, listBodyContainer) {
@@ -626,7 +705,7 @@
 
 				songsInPlaylist.show(e.target.getAttribute("playlistId"));
 
-				//songsNotInPlaylist.show(e.target.getAttribute("playlistId"));
+				songsNotInPlaylist.show(e.target.getAttribute("playlistId"));
 
 
 				let targetRow = e.target.closest("tr");       //Row of the event
@@ -634,15 +713,15 @@
 				let targetTitle = targetTitles[0].innerHTML;  //Take the first td -> the title
 				playlistMessage.setPlaylistName(targetTitle);
 				showPage("playlistpage");
+				document.getElementById("addSongToPlaylistDiv").style.display = "block";
 				playlistMessage.show();
 
 
 
 			}
 			//Disable the href of the anchor
-			//anchor.href = "#";
+			anchor.href = "#";
 
-			//row.appendChild(playlistNameCell);
 
 			var cell2 = document.createElement("td");
 			cell2.textContent = playlist.creationDate;
@@ -679,6 +758,8 @@
 			playlistSongsToOrder = new PlaylistSongsToOrder();
 			playlistMessage = new PlaylistMessage(document.getElementById("playlistNameMessage"));
 			songsInPlaylist = new SongsInPlaylist(document.getElementById("songTableError"), document.getElementById("songTable"), document.getElementById("songTableBody"));
+			songsNotInPlaylist = new SongsNotInPlaylist(document.getElementById("addSongError"), document.getElementById("addSongToPlaylistFieldset"),
+				document.getElementById("addSongToPlaylistDiv"), document.getElementById("addSongToPlaylist"))
 
 			nextButton = new NextButton(document.getElementById("next"));
 			document.getElementById("next").onclick = function() {
@@ -690,7 +771,7 @@
 			}
 
 			sortingList = new SortingList(document.getElementById("sortingError"), document.getElementById("sortingpage"),
-				document.getElementById("sortPlayListTable"), document.getElementById("sortPLayListBody"));
+				document.getElementById("sortPlaylistTable"), document.getElementById("sortPlaylistBody"));
 				
 			 songInfos = new SongInfos(document.getElementById("songInfosError") ,
                                         document.getElementById("songpage") , document.getElementById("songInfosTableBody"));	
@@ -701,6 +782,19 @@
 				showPage("sortingpage");
 				sortingList.show();
 			}
+			document.getElementById("goToMainPageButton").onclick = function(){
+				showPage("homepage");
+			}
+			document.getElementById("goToPlaylistPageButton").onclick = function(){
+				showPage("playlistpage");
+			}
+			document.getElementById("goToHomepageButton").onclick = function(){
+				showPage("homepage");
+			}
+			document.getElementById("confirmSortingButton").onclick = function(){
+				
+			}
+			
 
 
 			welcomeMessage = new WelcomeMessage(sessionStorage.getItem("currentUser"), document.getElementById("currentUser"));

@@ -56,6 +56,8 @@ public class CreatePlaylistjs extends HttpServlet {
 			error += "Title is empty";
 		else if (title.length() > 45)
 			error += "Title is too long";
+		else if (selectedSongs == null || selectedSongs.length == 0)
+			error += "Cannot create an empty playlist";
 
 		if (!error.equals("")) {
 			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);// Code 400

@@ -4,14 +4,14 @@
 <head>
 <meta charset="UTF-8">
 <title>Home</title>
-<!--<link rel="stylesheet" type="text/css" media="all"
-	href="CSS/mystyle.css" />-->
+<link rel="stylesheet" type="text/css" media="all"
+	href="css.css" />
 <script src="utils.js" charset="utf-8" defer></script>
 <script src="pageController.js" charset="utf-8" defer></script>
 <script src="createPlaylistForm.js" charset="utf-8" defer></script>
 <script src="uploadSong.js" charset="utf-8" defer></script>
-<!--<script src="addSong.js" charset="utf-8" defer></script>
-<script src="confirmNewSorting.js" charset="utf-8" defer></script>
+<script src="addSongToPlaylist.js" charset="utf-8" defer></script>
+<!--  <script src="confirmNewSorting.js" charset="utf-8" defer></script>
 <script src="d&dSorting.js" charset="utf-8" defer></script>-->
 
 </head>
@@ -26,12 +26,12 @@
 	<div class="homepage" id="homepage">
 		<h1>Home page</h1>
 		<h2>
-			Nice to see you again <span id="currentUser"></span>
+			Welcome back <span id="currentUser"></span>
 		</h2>
 		<table class="playlistsContainer" id="playlistsContainer">
 			<thead class="playlistTableHead" id="playlistTableHead">
 				<tr>
-					<th>PlayList name</th>
+					<th>Playlist name</th>
 					<th>Creation date</th>
 				</tr>
 			</thead>
@@ -131,15 +131,19 @@
 		<br>
 		<p>
 			<input type="button" id="goToSortingPageButton"
-				value="Order PlayList">
+				value="Order playlist">
 		</p>
 		<br>
+		<p>
+			<input type="button" id="goToHomepageButton"
+				value="HOMEPAGE">
+		</p>
 
 		<div class="addSongToPlaylistDiv" id="addSongToPlaylistDiv">
 			<fieldset class="addSongToPlaylistFieldset"
 				id="addSongToPlaylistFieldset">
-				<form id="addSongToPLayListForm" action="#">
-					<select id="addSongToPlayList" name="addSongToPlayList">
+				<form id="addSongToPlaylistForm" action="#">
+					<select id="addSongToPlaylist" name="addSongToPlaylist">
 
 					</select>
 					<p>
@@ -154,7 +158,7 @@
 
 	<div class="playerpage" id="playerpage">
 
-		<h3>Song details:</h3>
+		<h3>Song Info:</h3>
 
 		<table class="songInfosTable" id="songInfosTable">
 			<thead>
@@ -172,6 +176,9 @@
 			</tbody>
 		</table>
 		<p class="error" id="songInfosError"></p>
+		<p>
+			<input type="button" id="goToPlaylistPageButton" value="Back To The playlist">
+		</p>
 	</div>
 
 	<br>
@@ -182,21 +189,20 @@
 
 		<br> <br>
 
-		<table class="sortPlayListTable" id="sortPlayListTable">
+		<table class="sortPlaylistTable" id="sortPlaylistTable">
 			<thead>
 				<tr>
 					<td class="tableHeader" id="tableHeader">Song Name</td>
 				</tr>
 			</thead>
-			<tbody class="sortPlayListBody" id="sortPLayListBody">
-
+			<tbody class="sortPlaylistBody" id="sortPlaylistBody">
 			</tbody>
 		</table>
 		<p>
 			<input type="button" id="confirmSortingButton" value="Save">
 		</p>
 		<p>
-			<input type="button" id="goToMainPageButton" value="Back">
+			<input type="button" id="goToMainPageButton" value="Go To Homepage">
 		</p>
 		<p class="error" id="sortingError"></p>
 	</div>
