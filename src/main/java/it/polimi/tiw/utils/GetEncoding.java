@@ -74,7 +74,7 @@ public class GetEncoding {
 		SongDAO sDao = new SongDAO(connection);
 		
 		try {
-			if(!sDao.findSongByImageAndUserId(fileName, user.getIdUser())){
+			if(!sDao.findSongByAudioAndUserId(fileName, user.getIdUser())){
 				return null;
 			}
 		}catch(SQLException e) {

@@ -7,10 +7,11 @@
 	var playlistForm;
 	var playlistSongsToOrder;
 	var songsInPlaylist;
-	var sortingList;
-	var song;
 	var nextButton;
 	var previousButton;
+	var sortingList;
+	var song;
+	var songInfos;
 	var pageHandler = new PageHandler();
 
 	/**
@@ -156,6 +157,94 @@
 		this.id = id;
 		this.title = title;
 	}
+	
+	function SongInfos(alertContainer, listContainer, listBodyContainer){
+		this.alertContainer = alertContainer;
+        this.listContainer = listContainer;
+        this.listBodyContainer = listBodyContainer;
+        this.songId = null;
+        this.playlistId = null;
+
+        this.reset = function() {
+            this.listContainer.style.display = "none";
+        }
+        
+        this.setVisible = function() {
+        	this.listContainer.style.display = "";
+        }
+        
+        this.show = function(songId , playlistId) {
+            this.songId = songId;
+            this.playlistId = playlistId;
+
+            let self = this;
+
+            makeCall("GET" , "GetSongInfos?songId=" + this.songId + "&playlistId=" + this.playlistId , null ,
+                function(request) {
+                    if(request.readyState == XMLHttpRequest.DONE){
+                    	
+                        switch(request.status){
+                            case 200:
+                                let songDetails = JSON.parse(request.responseText);
+                                self.update(songDetails);
+                                break;
+
+                            case 403:
+                                //Redirect to login.html and remove the username from the session
+                                window.location.href = request.getResponseHeader("Location");
+                                window.sessionStorage.removeItem("userName");
+                                break;
+
+                            default:
+                                self.alertContainer.textContent = request.responseText;
+                                break;
+                        }
+                    }
+                }
+            );
+        }
+        
+        
+        this.update = function(songInfos) {
+            let row , titleCell , singerCell , albumTitleCell , publicationYearCell , genreCell , playCell;
+
+            this.listBodyContainer.innerHTML = "";
+
+            row = document.createElement("tr");
+
+            titleCell = document.createElement("td");
+            titleCell.appendChild(document.createTextNode(songInfos.songTitle));
+            row.appendChild(titleCell);
+
+            singerCell = document.createElement("td");
+            singerCell.appendChild(document.createTextNode(songInfos.author));
+            row.appendChild(singerCell);
+
+            albumTitleCell = document.createElement("td");
+            albumTitleCell.appendChild(document.createTextNode(songInfos.albumTitle));
+            row.appendChild(albumTitleCell);
+
+            publicationYearCell = document.createElement("td");
+            publicationYearCell.appendChild(document.createTextNode(songInfos.publicationYear));
+            row.appendChild(publicationYearCell);
+
+            genreCell = document.createElement("td");
+            genreCell.appendChild(document.createTextNode(songInfos.genre));
+            row.appendChild(genreCell);
+
+            playCell = document.createElement("audio");
+            playCell.type = "audio/mpeg";
+            playCell.controls = "controls"
+            playCell.src = songInfos.base64String;
+            row.appendChild(playCell);
+
+            this.listBodyContainer.appendChild(row);
+            this.listContainer.style.display = "";
+        }
+		
+		
+		
+	}
 
 	function SongsInPlaylist(alertContainer, listContainer, listBodyContainer) {
 		this.alertContainer = alertContainer;
@@ -222,7 +311,7 @@
 								self.update(0);
 
 								//Launch the autoClick to select a song to show
-								//if (self.playlistId !== songDetails.playlistId) {
+								//if (self.playlistId !== songInfos.playlistId) {
 								//	self.autoClick();
 								//}
 								break;
@@ -330,10 +419,11 @@
 				songNameCell.appendChild(anchor);
 				linkText = document.createTextNode(songToShow.songTitle);
 				anchor.appendChild(linkText);
-				anchor.setAttribute("idSong", songToShow.idSong);
+				anchor.setAttribute("idSong", songToShow.songId);
 				anchor.href = "#";
 				anchor.onclick = function(e) {
-					songDetails.show(e.target.getAttribute("idSong"), songsInPlayLlist.playlistId);
+					showPage("playerpage");
+					songInfos.show(e.target.getAttribute("idSong"), songsInPlaylist.playlistId);
 				}
 
 				row.appendChild(internalTableCell);
@@ -601,6 +691,10 @@
 
 			sortingList = new SortingList(document.getElementById("sortingError"), document.getElementById("sortingpage"),
 				document.getElementById("sortPlayListTable"), document.getElementById("sortPLayListBody"));
+				
+			 songInfos = new SongInfos(document.getElementById("songInfosError") ,
+                                        document.getElementById("songpage") , document.getElementById("songInfosTableBody"));	
+				
 
 
 			document.getElementById("goToSortingPageButton").onclick = function() {
