@@ -67,6 +67,7 @@
 									label.appendChild(checkbox);
 									label.appendChild(document.createTextNode(song));
 									checkBoxContainer.appendChild(label);
+									checkBoxContainer.appendChild(document.createElement("br"));
 								})
 
 								break;
@@ -74,7 +75,7 @@
 							case 403:
 								//Redirect to login.html and remove the username from the session
 								window.location.href = request.getResponseHeader("Location");
-								window.sessionStorage.removeItem("userName");
+								window.sessionStorage.removeItem("currentUser");
 								break;
 
 							default:
@@ -423,7 +424,7 @@
 				linkText = document.createTextNode(songToShow.songTitle);
 				anchor.appendChild(linkText);
 				anchor.setAttribute("idSong", songToShow.songId);
-				anchor.href = "#";
+				
 				anchor.onclick = function(e) {
 					showPage("playerpage");
 					songInfos.show(e.target.getAttribute("idSong"), songsInPlaylist.playlistId);
@@ -478,7 +479,7 @@
 							case 403:
 								//Redirect to login.html and remove the username from the session
 								window.location.href = request.getResponseHeader("Location");
-								window.sessionStorage.removeItem("userName");
+								window.sessionStorage.removeItem("currentUser");
 								break;
 
 							default:
@@ -667,7 +668,7 @@
 							case 403:
 								//Redirect to login.html and remove the username from the session
 								window.location.href = request.getResponseHeader("Location");
-								window.sessionStorage.removeItem("userName");
+								window.sessionStorage.removeItem("currentUser");
 								break;
 
 							default:
@@ -720,7 +721,7 @@
 
 			}
 			//Disable the href of the anchor
-			anchor.href = "#";
+			//anchor.href = "#";
 
 
 			var cell2 = document.createElement("td");
@@ -791,9 +792,7 @@
 			document.getElementById("goToHomepageButton").onclick = function(){
 				showPage("homepage");
 			}
-			document.getElementById("confirmSortingButton").onclick = function(){
-				
-			}
+			
 			
 
 

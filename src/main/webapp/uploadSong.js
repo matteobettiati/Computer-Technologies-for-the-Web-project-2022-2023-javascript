@@ -44,10 +44,11 @@
                     if(x.readyState = XMLHttpRequest.DONE){
                         switch(x.status){
                             case 200:
+								//playlistForm.show();  no
                                 break;
 
                             case 403:
-                                sessionStorage.removeItem("userName");
+                                sessionStorage.removeItem("currentUser");
                                 window.location.href = "login.html";
                                 break;
 

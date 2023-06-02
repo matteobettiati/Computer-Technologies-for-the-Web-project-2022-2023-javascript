@@ -6,29 +6,26 @@
 <title>TIW_project_Javascript</title>
 <script src="login.js" charset="utf-8" defer></script>
 <script src="utils.js" charset="utf-8" defer></script>
+<link rel="stylesheet" type="text/css" media="all" href="loginstyle.css" />
 
 </head>
 
 <body>
 	<h1>Log in</h1>
-	<fieldset>
-		<form id="loginForm">
-			<label for="user">Username:</label> <input type="text" id="user"
-				name="user" required><br> <br> <label
-				for="password">Password:</label> <input type="password"
-				id="password" name="password" required><br> <br> <input
-				type="submit" value="login">
+	<form id="loginForm">
+		<label for="user">Username:</label> <input type="text" id="user"
+			name="user" required><br> <br> <label
+			for="password">Password:</label> <input type="password" id="password"
+			name="password" required><br> <br> <input
+			type="submit" value="login">
 
-			<p class="error" id="error"></p>
-		</form>
-	</fieldset>
+		<div class="signup">
+			<a href="signupPage.html"> Sign up</a>
+		</div>
 
+		<p class="error" id="error"></p>
+	</form>
 	<br>
-	<div>
-		<a href="signupPage.html"> Sign up</a>
-	</div>
-
-
 </body>
 
 </html>

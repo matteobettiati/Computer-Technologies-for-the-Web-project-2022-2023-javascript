@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import it.polimi.tiw.beans.*;
+import it.polimi.tiw.utils.FromJsonToArray;
 
 public class PlaylistDAO {
 
@@ -293,5 +294,83 @@ public class PlaylistDAO {
 		}
 		return code > 0;
 	}
+	
+	
+	/**
+	 * Method that inserts a new sorting of the playList in the playList table in the data base
+	 * @param pId is the id of the playList
+	 * @param jsonSorting is a string containing a jSon with song IDs in the new order
+	 * @return true if everything went good , false otherwise
+	 * @throws SQLException
+	 */
+	public boolean addSorting(int pId , String jsonSorting) throws SQLException{
+		String query = "UPDATE playlist SET Sorting = ? WHERE Id = ?";
+		int code = 0;
+		PreparedStatement pStatement = null;
+		
+		try{
+			pStatement = connection.prepareStatement(query);
+			pStatement.setString(1, jsonSorting);
+			pStatement.setInt(2, pId);
+			code = pStatement.executeUpdate();
+		}catch(SQLException e) {
+			throw new SQLException();
+		}finally {
+			try {
+				if(pStatement != null) {
+					pStatement.close();
+				}
+			}catch(Exception e2) {
+				throw new SQLException(e2);
+		    }
+		}
+		
+		return (code > 0);
+	}
+	
+	/**
+	 * Method that take the sorting of a playList and convert the string into an arrayList
+	 * @param pId is the id of the playList to take the sorting
+	 * @return an arrayList of integer containing the songId in the order chose by the user
+	 * @throws SQLException
+	 */
+	public ArrayList<Integer> getSorting(int pId) throws SQLException{
+		String query = "SELECT Sorting FROM playlist WHERE Id = ?";
+		PreparedStatement pStatement = null;
+		ResultSet resultSet = null;
+		String jSon = null;
+		
+		ArrayList<Integer> sortedArray = new ArrayList<Integer>();
+		
+		try {
+			pStatement = connection.prepareStatement(query);
+			pStatement.setInt(1, pId);
+			
+			resultSet = pStatement.executeQuery();
+			
+			if(resultSet.next())
+				 jSon = resultSet.getString("Sorting");
+			
+			if(jSon == null)
+				return null;
+			
+			sortedArray = FromJsonToArray.fromJsonToArrayList(jSon);
+			
+		}catch(SQLException e) {
+			throw new SQLException();
+		}finally {
+			try {
+				if(pStatement != null) {
+					pStatement.close();
+				}
+			}catch(Exception e2) {
+				throw new SQLException(e2);
+		    }
+		}
+		
+		return sortedArray;
+	}
+	
+	
 
 }

@@ -1,0 +1,36 @@
+h1 {
+	font-family: Geneva, Verdana, sans-serif;
+	position: fixed;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	top: 20%;
+}
+
+body {
+	text-align: center;
+	background-color: #F1E9D9;
+}
+
+.error {
+	color: #ff0000;
+}
+
+form {
+	background-color: #E8DCCA;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	border: 1px solid #000000;
+	padding: 20px;
+}
+
+.txt_field input {
+	border: none;
+	width: 100%;
+	margin-top: 10px;
+}
+
+.signup {
+	margin-top: 10px;
+}

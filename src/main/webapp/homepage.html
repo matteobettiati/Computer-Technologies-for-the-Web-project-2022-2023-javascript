@@ -4,15 +4,14 @@
 <head>
 <meta charset="UTF-8">
 <title>Home</title>
-<link rel="stylesheet" type="text/css" media="all"
-	href="css.css" />
+<link rel="stylesheet" type="text/css" media="all" href="css.css" />
 <script src="utils.js" charset="utf-8" defer></script>
 <script src="pageController.js" charset="utf-8" defer></script>
 <script src="createPlaylistForm.js" charset="utf-8" defer></script>
 <script src="uploadSong.js" charset="utf-8" defer></script>
 <script src="addSongToPlaylist.js" charset="utf-8" defer></script>
-<!--  <script src="confirmNewSorting.js" charset="utf-8" defer></script>
-<script src="d&dSorting.js" charset="utf-8" defer></script>-->
+<script src="saveSorting.js" charset="utf-8" defer></script>
+
 
 </head>
 
@@ -21,87 +20,98 @@
 	<div class="logout" id="logout">
 		<a href="Logout">Logout</a>
 	</div>
-	
+
 
 	<div class="homepage" id="homepage">
 		<h1>Home page</h1>
 		<h2>
 			Welcome back <span id="currentUser"></span>
 		</h2>
-		<table class="playlistsContainer" id="playlistsContainer">
-			<thead class="playlistTableHead" id="playlistTableHead">
-				<tr>
-					<th>Playlist name</th>
-					<th>Creation date</th>
-				</tr>
-			</thead>
 
-			<tbody class="playlistTableBody" id="playlistsContainerBody">
-			</tbody>
-		</table>
-		<p id="playlistTableMessage"></p>
-		<p class="error" id="alertContainer"></p>
+		<fieldset class="container">
 
-		<br> <br>
+			<fieldset class="createSongField">
+				<form action="#">
+					Add a new song in your DataBase<br>
+					<p>
+						Title:<br> <input type="text" id="title" name="title"
+							required>
+					</p>
+					<p>
+						Genre:<br> <select id="genre" name="genre" required>
+							<option value="Classic">Classic</option>
+							<option value="Pop">Pop</option>
+							<option value="Rap">Rap</option>
+							<option value="Rock">Rock</option>
+							<option value="Jazz">Jazz</option>
+						</select>
+					</p>
+					<p>
+						Album title:<br> <input type="text" id="albumTitle"
+							name="albumTitle" required>
+					</p>
+					<p>
+						Author:<br> <input type="text" id="author" name="author"
+							required>
+					</p>
+					<p>
+						Album publication year:<br> <input type="number" id="date"
+							name="date" required>
+					</p>
+					<p>
+						Album image:<br> <input type="file" id="imageFile"
+							name="albumImg" accept="image/*" required>
+					</p>
+					<p>
+						MP3 file:<br> <input type="file" id="songFile"
+							name="songFile" accept="audio/*" required>
+					</p>
+					<p>
+						<input type="button" id="uploadSongButton" value="submit">
+					</p>
+					<p class="error" id="songError">
+				</form>
+			</fieldset>
 
-		<fieldset>
-			<form action="#">
-				Create a new playlist<br>
-				<p>
-					Title: <input type="text"  id="playlistTitle" name="playlistTitle" required>
-				</p>
-				<fieldset id="checkBoxContainer"
-					style="max-height: 100px; overflow-y: scroll;">
-					</fieldset>
-				<p class="error" id="songsToAddError"></p>	
-				<p>
-					<input type="button" id="createPlaylistButton" value="submit">
-				</p>
-				<p class="error" id="createPlaylistError"></p>
-			</form>
-		</fieldset>
+			<br> <br>
 
-		<br> <br>
+			<table class="playlistsContainer" id="playlistsContainer">
+				<thead class="playlistTableHead" id="playlistTableHead">
+					<tr>
+						<th>Playlist name</th>
+						<th>Creation date</th>
+					</tr>
+				</thead>
 
-		<fieldset class="createSongField">
-			<form action="#">
-				Add a new song in your DataBase<br>
-				<p>
-					Title: <input type="text" id="title" name="title" required>
-				</p>
-				<p>
-					Genre: <select id="genre" name="genre" required>
-						<option value="Classic">Classic</option>
-						<option value="Pop">Pop</option>
-						<option value="Rap">Rap</option>
-						<option value="Rock">Rock</option>
-						<option value="Jazz">Jazz</option>
-					</select>
-				</p>
-				<p>
-					Album title: <input type="text" id="albumTitle" name="albumTitle"
-						required>
-				</p>
-				<p>
-					Author: <input type="text" id="author" name="author" required>
-				</p>
-				<p>
-					Album publication year: <input type="number" id="date" name="date"
-						required>
-				</p>
-				<p>
-					Album image: <input type="file" id="imageFile" name="albumImg"
-						accept="image/*" required>
-				</p>
-				<p>
-					MP3 file: <input type="file" id="songFile" name="songFile"
-						accept="audio/*" required>
-				</p>
-				<p>
-					<input type="button" id="uploadSongButton" value="submit">
-				</p>
-				<p class="error" id="songError">
-			</form>
+				<tbody class="playlistTableBody" id="playlistsContainerBody">
+				</tbody>
+			</table>
+			<p id="playlistTableMessage"></p>
+			<p class="error" id="alertContainer"></p>
+
+			<br> <br>
+
+
+			<fieldset class="createPlaylistField">
+				<form action="#">
+					Create a new playlist<br>
+					<p>
+						Title: <input type="text" id="playlistTitle" name="playlistTitle"
+							required>
+					</p>
+					<fieldset id="checkBoxContainer"
+						style="max-height: 100px; overflow-y: scroll;"></fieldset>
+					<p class="error" id="songsToAddError"></p>
+					<p>
+						<input type="button" id="createPlaylistButton" value="submit">
+					</p>
+					<p class="error" id="createPlaylistError"></p>
+				</form>
+			</fieldset>
+
+
+
+
 		</fieldset>
 	</div>
 
@@ -135,8 +145,7 @@
 		</p>
 		<br>
 		<p>
-			<input type="button" id="goToHomepageButton"
-				value="HOMEPAGE">
+			<input type="button" id="goToHomepageButton" value="HOMEPAGE">
 		</p>
 
 		<div class="addSongToPlaylistDiv" id="addSongToPlaylistDiv">
@@ -177,7 +186,8 @@
 		</table>
 		<p class="error" id="songInfosError"></p>
 		<p>
-			<input type="button" id="goToPlaylistPageButton" value="Back To The playlist">
+			<input type="button" id="goToPlaylistPageButton"
+				value="Back To The playlist">
 		</p>
 	</div>
 
@@ -210,5 +220,3 @@
 </body>
 
 </html>
-
-

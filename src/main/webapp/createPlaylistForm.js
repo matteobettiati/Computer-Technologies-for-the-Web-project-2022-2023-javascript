@@ -4,7 +4,7 @@
 (function() {
 	document.getElementById("createPlaylistButton").onclick = function(e) {
 
-		console.log("Creating a new playList!");
+		console.log("Creating a new playlist!");
 
 		//Take the closest form
 		let form = e.target.closest("form");
@@ -19,7 +19,7 @@
 				var playlistTitleCell = playlistRows[i].querySelector("td:first-child");
 
 				if (playlistTitleCell.textContent === playlistTitle) {
-					document.getElementById("createPlaylistError").textContent = "PlayList name already used";
+					document.getElementById("createPlaylistError").textContent = "Playlist name already used";
 					return;
 				}
 			}
@@ -32,12 +32,12 @@
 
 						switch (x.status) {
 							case 200:
-								//Update the playList list
+								//Update the playlist list
 								playlists.show();
 								break;
 
 							case 403:
-								sessionStorage.removeItem("currentUsername");
+								sessionStorage.removeItem("currentUser");
 								window.location.href = "login.html";
 								break;
 

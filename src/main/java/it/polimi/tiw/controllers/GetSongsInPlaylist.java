@@ -112,9 +112,8 @@ public class GetSongsInPlaylist extends HttpServlet {
 				//Take the titles and the image paths
 				try {
 					
-					ArrayList<Song> songsInPlaylist = sDao.getSongsInPlaylist(idParsed);
-					ArrayList<Integer> sorting = null;   // per ora senza sorting. verra implementato dopo
-					//ArrayList<Integer> sorting = pDao.getSorting(idParsed);                   TODO
+					ArrayList<Song> songsInPlaylist = sDao.getSongsInPlaylist(idParsed); 
+					ArrayList<Integer> sorting = pDao.getSorting(idParsed);                
 					
 					//Send all the song of the playList
 					JSONArray jArray = new JSONArray();
