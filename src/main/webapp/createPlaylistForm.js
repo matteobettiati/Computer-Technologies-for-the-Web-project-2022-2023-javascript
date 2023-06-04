@@ -29,10 +29,12 @@
 				function(x) {
 
 					if (x.readyState == XMLHttpRequest.DONE) {
+						pageHandler.resetErrors();
 
 						switch (x.status) {
 							case 200:
 								//Update the playlist list
+								
 								playlists.show();
 								break;
 

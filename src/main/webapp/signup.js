@@ -2,7 +2,8 @@
  * Registration
  */
 (function () {
-    document.getElementById("signupButton").addEventListener('click' , (e) => {
+    document.getElementById("signupForm").onsubmit = (e) => {
+		e.preventDefault();
 
         console.log("Registration event!");
         //Take the closest form
@@ -43,5 +44,5 @@
         }else{
             form.reportValidity();
         }
-    });
+    };
 })();

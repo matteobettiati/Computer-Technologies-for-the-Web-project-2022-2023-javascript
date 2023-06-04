@@ -11,7 +11,7 @@
 <script src="uploadSong.js" charset="utf-8" defer></script>
 <script src="addSongToPlaylist.js" charset="utf-8" defer></script>
 <script src="saveSorting.js" charset="utf-8" defer></script>
-
+<script src="reset.js" charset="utf-8" defer></script>
 
 </head>
 
@@ -31,11 +31,10 @@
 		<fieldset class="container">
 
 			<fieldset class="createSongField">
-				<form action="#">
+				<form action="#" id="createPlaylistForm">
 					Add a new song in your DataBase<br>
 					<p>
-						Title:<br> <input type="text" id="title" name="title"
-							required>
+						Title:<br> <input type="text" id="title" name="title" required>
 					</p>
 					<p>
 						Genre:<br> <select id="genre" name="genre" required>
@@ -47,24 +46,23 @@
 						</select>
 					</p>
 					<p>
-						Album title:<br> <input type="text" id="albumTitle"
-							name="albumTitle" required>
-					</p>
-					<p>
-						Author:<br> <input type="text" id="author" name="author"
+						Album title:<br> <input type="text" id="albumTitle" name="albumTitle"
 							required>
 					</p>
 					<p>
-						Album publication year:<br> <input type="number" id="date"
-							name="date" required>
+						Author:<br> <input type="text" id="author" name="author" required>
 					</p>
 					<p>
-						Album image:<br> <input type="file" id="imageFile"
-							name="albumImg" accept="image/*" required>
+						Album publication year:<br> <input type="number" id="date" name="date"
+							required>
 					</p>
 					<p>
-						MP3 file:<br> <input type="file" id="songFile"
-							name="songFile" accept="audio/*" required>
+						Album image:<br> <input type="file" id="imageFile" name="albumImg"
+							accept="image/*" required>
+					</p>
+					<p>
+						MP3 file:<br> <input type="file" id="songFile" name="songFile"
+							accept="audio/*" required>
 					</p>
 					<p>
 						<input type="button" id="uploadSongButton" value="submit">
@@ -74,7 +72,7 @@
 			</fieldset>
 
 			<br> <br>
-
+			
 			<table class="playlistsContainer" id="playlistsContainer">
 				<thead class="playlistTableHead" id="playlistTableHead">
 					<tr>
@@ -90,8 +88,8 @@
 			<p class="error" id="alertContainer"></p>
 
 			<br> <br>
-
-
+			
+			
 			<fieldset class="createPlaylistField">
 				<form action="#">
 					Create a new playlist<br>
@@ -108,9 +106,6 @@
 					<p class="error" id="createPlaylistError"></p>
 				</form>
 			</fieldset>
-
-
-
 
 		</fieldset>
 	</div>
@@ -220,3 +215,5 @@
 </body>
 
 </html>
+
+

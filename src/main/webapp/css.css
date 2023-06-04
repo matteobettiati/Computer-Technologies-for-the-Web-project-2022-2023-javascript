@@ -70,14 +70,12 @@ td a {
 	color: #ff0000;
 }
 
-.before {
+.previous {
 	position: relative;
-	left: -170px;
 }
 
 .next {
 	position: relative;
-	left: 350px;
 }
 
 .logout{

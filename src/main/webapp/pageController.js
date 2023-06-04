@@ -39,8 +39,8 @@
 		}
 
 	}
-	
-	
+
+
 	function PlaylistForm() {
 		this.show = function() {
 			var checkBoxContainer = document.getElementById("checkBoxContainer");
@@ -61,9 +61,9 @@
 									var label = document.createElement("label");
 									var checkbox = document.createElement("input");
 									checkbox.type = "checkbox";
-									checkbox.value=song;	
-									checkbox.name="selectedSongs";
-									checkbox.id="song";
+									checkbox.value = song;
+									checkbox.name = "selectedSongs";
+									checkbox.id = "song";
 									label.appendChild(checkbox);
 									label.appendChild(document.createTextNode(song));
 									checkBoxContainer.appendChild(label);
@@ -90,7 +90,7 @@
 
 	}
 
-	
+
 
 
 	function PlaylistMessage(messageContainer) {
@@ -159,93 +159,93 @@
 		this.id = id;
 		this.title = title;
 	}
-	
-	function SongInfos(alertContainer, listContainer, listBodyContainer){
+
+	function SongInfos(alertContainer, listContainer, listBodyContainer) {
 		this.alertContainer = alertContainer;
-        this.listContainer = listContainer;
-        this.listBodyContainer = listBodyContainer;
-        this.songId = null;
-        this.playlistId = null;
+		this.listContainer = listContainer;
+		this.listBodyContainer = listBodyContainer;
+		this.songId = null;
+		this.playlistId = null;
 
-        this.reset = function() {
-            this.listContainer.style.display = "none";
-        }
-        
-        this.setVisible = function() {
-        	this.listContainer.style.display = "";
-        }
-        
-        this.show = function(songId , playlistId) {
-            this.songId = songId;
-            this.playlistId = playlistId;
+		this.reset = function() {
+			this.listContainer.style.display = "none";
+		}
 
-            let self = this;
+		this.setVisible = function() {
+			this.listContainer.style.display = "";
+		}
 
-            makeCall("GET" , "GetSongInfos?songId=" + this.songId + "&playlistId=" + this.playlistId , null ,
-                function(request) {
-                    if(request.readyState == XMLHttpRequest.DONE){
-                    	
-                        switch(request.status){
-                            case 200:
-                                let songDetails = JSON.parse(request.responseText);
-                                self.update(songDetails);
-                                break;
+		this.show = function(songId, playlistId) {
+			this.songId = songId;
+			this.playlistId = playlistId;
 
-                            case 403:
-                                //Redirect to login.html and remove the username from the session
-                                window.location.href = request.getResponseHeader("Location");
-                                window.sessionStorage.removeItem("userName");
-                                break;
+			let self = this;
 
-                            default:
-                                self.alertContainer.textContent = request.responseText;
-                                break;
-                        }
-                    }
-                }
-            );
-        }
-        
-        
-        this.update = function(songInfos) {
-            let row , titleCell , singerCell , albumTitleCell , publicationYearCell , genreCell , playCell;
+			makeCall("GET", "GetSongInfos?songId=" + this.songId + "&playlistId=" + this.playlistId, null,
+				function(request) {
+					if (request.readyState == XMLHttpRequest.DONE) {
 
-            this.listBodyContainer.innerHTML = "";
+						switch (request.status) {
+							case 200:
+								let songDetails = JSON.parse(request.responseText);
+								self.update(songDetails);
+								break;
 
-            row = document.createElement("tr");
+							case 403:
+								//Redirect to login.html and remove the username from the session
+								window.location.href = request.getResponseHeader("Location");
+								window.sessionStorage.removeItem("userName");
+								break;
 
-            titleCell = document.createElement("td");
-            titleCell.appendChild(document.createTextNode(songInfos.songTitle));
-            row.appendChild(titleCell);
+							default:
+								self.alertContainer.textContent = request.responseText;
+								break;
+						}
+					}
+				}
+			);
+		}
 
-            singerCell = document.createElement("td");
-            singerCell.appendChild(document.createTextNode(songInfos.author));
-            row.appendChild(singerCell);
 
-            albumTitleCell = document.createElement("td");
-            albumTitleCell.appendChild(document.createTextNode(songInfos.albumTitle));
-            row.appendChild(albumTitleCell);
+		this.update = function(songInfos) {
+			let row, titleCell, singerCell, albumTitleCell, publicationYearCell, genreCell, playCell;
 
-            publicationYearCell = document.createElement("td");
-            publicationYearCell.appendChild(document.createTextNode(songInfos.publicationYear));
-            row.appendChild(publicationYearCell);
+			this.listBodyContainer.innerHTML = "";
 
-            genreCell = document.createElement("td");
-            genreCell.appendChild(document.createTextNode(songInfos.genre));
-            row.appendChild(genreCell);
+			row = document.createElement("tr");
 
-            playCell = document.createElement("audio");
-            playCell.type = "audio/mpeg";
-            playCell.controls = "controls"
-            playCell.src = songInfos.base64String;
-            row.appendChild(playCell);
+			titleCell = document.createElement("td");
+			titleCell.appendChild(document.createTextNode(songInfos.songTitle));
+			row.appendChild(titleCell);
 
-            this.listBodyContainer.appendChild(row);
-            this.listContainer.style.display = "";
-        }
-		
-		
-		
+			singerCell = document.createElement("td");
+			singerCell.appendChild(document.createTextNode(songInfos.author));
+			row.appendChild(singerCell);
+
+			albumTitleCell = document.createElement("td");
+			albumTitleCell.appendChild(document.createTextNode(songInfos.albumTitle));
+			row.appendChild(albumTitleCell);
+
+			publicationYearCell = document.createElement("td");
+			publicationYearCell.appendChild(document.createTextNode(songInfos.publicationYear));
+			row.appendChild(publicationYearCell);
+
+			genreCell = document.createElement("td");
+			genreCell.appendChild(document.createTextNode(songInfos.genre));
+			row.appendChild(genreCell);
+
+			playCell = document.createElement("audio");
+			playCell.type = "audio/mpeg";
+			playCell.controls = "controls"
+			playCell.src = songInfos.base64String;
+			row.appendChild(playCell);
+
+			this.listBodyContainer.appendChild(row);
+			this.listContainer.style.display = "";
+		}
+
+
+
 	}
 
 	function SongsInPlaylist(alertContainer, listContainer, listBodyContainer) {
@@ -416,7 +416,7 @@
 				imageCell.appendChild(image);
 
 				image.src = songToShow.base64String;
-				
+
 				image.classList.add("songsImage");
 
 				anchor = document.createElement("a");
@@ -424,7 +424,7 @@
 				linkText = document.createTextNode(songToShow.songTitle);
 				anchor.appendChild(linkText);
 				anchor.setAttribute("idSong", songToShow.songId);
-				
+
 				anchor.onclick = function(e) {
 					showPage("playerpage");
 					songInfos.show(e.target.getAttribute("idSong"), songsInPlaylist.playlistId);
@@ -438,7 +438,7 @@
 
 
 	}
-	
+
 	function SongsNotInPlaylist(alertContainer, listFieldset, listContainer, select) {
 		this.alertContainer = alertContainer;
 		this.listFieldset = listFieldset;
@@ -510,10 +510,10 @@
 			this.listContainer.style.display = "";
 		}
 	}
-	
-	
-	
-	
+
+
+
+
 
 
 	function SortingList(alertContainer, divContainer, listContainer, listBodyContainer) {
@@ -611,7 +611,7 @@
 				}
 
 				const dropElem = isDraggedFromAbove ? this.nextSibling : this.previousSibling;
-				
+
 			}
 			this.classList.remove("over");
 			return false;
@@ -621,7 +621,7 @@
 			this.classList.remove("dragging");
 		}
 
-		
+
 	}
 
 
@@ -632,7 +632,7 @@
 		this.playlistsContainerBody = playlistsContainerBody;
 
 		this.reset = function() {
-			this.listContainer.style.disply = "none";
+			this.listContainer.style.display = "none";
 			this.alertContainer.textContent = "";
 		}
 
@@ -716,7 +716,7 @@
 				showPage("playlistpage");
 				document.getElementById("addSongToPlaylistDiv").style.display = "block";
 				playlistMessage.show();
-
+				//reset.resetHomepage();
 
 
 			}
@@ -737,13 +737,12 @@
 
 		var divs = document.getElementsByTagName("div");
 		for (var i = 0; i < divs.length; i++) {
-
 			if (divs[i].id === divToView || divs[i].id === "logout") {
 				divs[i].style.display = "block";
 			} else {
 				divs[i].style.display = "none";
 			}
-		}
+		}			
 	}
 
 
@@ -773,29 +772,30 @@
 
 			sortingList = new SortingList(document.getElementById("sortingError"), document.getElementById("sortingpage"),
 				document.getElementById("sortPlaylistTable"), document.getElementById("sortPlaylistBody"));
-				
-			 songInfos = new SongInfos(document.getElementById("songInfosError") ,
-                                        document.getElementById("songpage") , document.getElementById("songInfosTableBody"));	
-				
+
+			songInfos = new SongInfos(document.getElementById("songInfosError"),
+				document.getElementById("songInfosTable"), document.getElementById("songInfosTableBody"));
+
 
 
 			document.getElementById("goToSortingPageButton").onclick = function() {
 				showPage("sortingpage");
 				sortingList.show();
 			}
-			document.getElementById("goToMainPageButton").onclick = function(){
+			document.getElementById("goToMainPageButton").onclick = function() {
 				showPage("homepage");
 			}
-			document.getElementById("goToPlaylistPageButton").onclick = function(){
+			document.getElementById("goToPlaylistPageButton").onclick = function() {
+				songsInPlaylist.update(0);
+				songsNotInPlaylist.show(songInfos.playlistId);
 				showPage("playlistpage");
+				document.getElementById("addSongToPlaylistDiv").style.display = "block";
+				playlistMessage.show();
 			}
-			document.getElementById("goToHomepageButton").onclick = function(){
+			document.getElementById("goToHomepageButton").onclick = function() {
 				showPage("homepage");
 			}
 			
-			
-
-
 			welcomeMessage = new WelcomeMessage(sessionStorage.getItem("currentUser"), document.getElementById("currentUser"));
 			welcomeMessage.show();
 
@@ -807,6 +807,15 @@
 
 
 
+		}
+
+		this.resetErrors = function() {
+			document.getElementById("createPlaylistError").textContent = "";
+			document.getElementById("songError").textContent = "";
+			document.getElementById("songTableError").textContent = "";
+			document.getElementById("addSongError").textContent = "";
+			document.getElementById("songError").textContent = "";
+			document.getElementById("sortingError").textContent = "";
 		}
 
 

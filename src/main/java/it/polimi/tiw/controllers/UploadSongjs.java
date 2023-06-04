@@ -86,7 +86,7 @@ public class UploadSongjs extends HttpServlet{
 			int currentYear = Calendar.getInstance().get(Calendar.YEAR);
 			
 			//Check if the publicationYear is not bigger than the current year
-			if(publicationYear > currentYear)
+			if(publicationYear > currentYear || publicationYear < 900)
 				error += "Invalid date;";
 		}catch(NumberFormatException e) {
 			error += "Date not valid;";
