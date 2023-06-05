@@ -12,6 +12,7 @@
 	var previousButton;
 	var sortingList;
 	var song;
+	var playlists;
 	var songInfos;
 	var pageHandler = new PageHandler();
 
@@ -613,7 +614,6 @@
 		this.playlistsContainerBody = playlistsContainerBody;
 
 		this.reset = function() {
-			this.listContainer.style.display = "none";
 			this.alertContainer.textContent = "";
 		}
 
@@ -639,6 +639,7 @@
 									self.playlistContainer.style.display = "none";
 									return;
 								}
+								self.playlistContainer.style.display = "block";
 								document.getElementById("playlistTableMessage").textContent = "";
 								self.alertContainer.textContent = "";
 
@@ -780,13 +781,10 @@
 				showPage("homepage");
 			}
 			document.getElementById("goToPlaylistPageButton").onclick = function() {
-				showPage("playlistpage");
 				pageHandler.resetErrors();
 				songsInPlaylist.update(0);
 				songsNotInPlaylist.show(songInfos.playlistId);
-				document.getElementById("addSongTolaylistDiv").style.display = "block";
-				playlistMessage.show();
-				
+				showPage("playlistpage");
 				document.getElementById("addSongToPlaylistDiv").style.display = "block";
 				playlistMessage.show();
 			}
