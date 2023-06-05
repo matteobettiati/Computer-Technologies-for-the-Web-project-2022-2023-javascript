@@ -312,10 +312,7 @@
 
 								self.update(0);
 
-								//Launch the autoClick to select a song to show
-								//if (self.playlistId !== songInfos.playlistId) {
-								//	self.autoClick();
-								//}
+							
 								break;
 
 							case 403:
@@ -352,13 +349,7 @@
 				block = 0;
 			}
 
-			/*if (block * 5 + 5 > this.songs.length) {       
-				block = (this.songs.length / 5);
-
-				//Save the integer
-				this.block = parseInt(block.toString().split(".")[0]); */
-
-			//}
+		
 			if ((block * 5 + 5) < this.songs.length) {
 				next = true;
 			}
@@ -530,6 +521,7 @@
 		this.reset = function() {
 			this.divContainer.style.display = "none";
 			this.alertContainer.textContent = "";
+			this.playlistId = null;
 		}
 
 		this.show = function() {
@@ -574,33 +566,24 @@
 		let dragSrcElement = null;
 
 		function handleDragStart(e) {
-			dragSrcElement = this;
-			e.dataTransfer.effectAllowed = "move";
-			e.dataTransfer.setData("text/html", this.outerHTML);
-			this.classList.add("dragging");
+			dragSrcElement = e.target;
 		}
 
 		function handleDragOver(e) {
-			if (e.preventDefault) {
-				e.preventDefault();
-			}
-			e.dataTransfer.dropEffect = "move";
-			return false;
+				e.preventDefault()
+		}
+		
+		function handleDragLeave(e) {
+				e.preventDefault()
 		}
 
-		function handleDragEnter() {
-			this.classList.add("over");
+		function handleDragEnter(e) {
+			e.preventDefault();
 		}
 
-		function handleDragLeave() {
-			this.classList.remove("over");
-		}
 
 		function handleDrop(e) {
-			if (e.stopPropagation) {
-				e.stopPropagation();
-			}
-			if (dragSrcElement !== this) {
+			if (dragSrcElement !== e) {
 				const isDraggedFromAbove = Array.from(this.parentNode.children).indexOf(dragSrcElement) < Array.from(this.parentNode.children).indexOf(this);
 
 				const dropPosition = isDraggedFromAbove ? this.nextSibling : this;
@@ -610,17 +593,13 @@
 					this.parentNode.insertBefore(dragSrcElement, dropPosition);
 				}
 
-				const dropElem = isDraggedFromAbove ? this.nextSibling : this.previousSibling;
-
-			}
-			this.classList.remove("over");
-			return false;
+			}else return;
+			
 		}
 
-		function handleDragEnd() {
-			this.classList.remove("dragging");
+		function handleDragEnd(e) {
+			e.preventDefault();
 		}
-
 
 	}
 
@@ -750,6 +729,15 @@
 	 * handle the entire page
 	 */
 	function PageHandler() {
+		this.resetErrors = function() {
+			document.getElementById("createPlaylistError").textContent = "";
+			document.getElementById("songError").textContent = "";
+			document.getElementById("songTableError").textContent = "";
+			document.getElementById("addSongError").textContent = "";
+			document.getElementById("songError").textContent = "";
+			document.getElementById("sortingError").textContent = "";
+		}
+		
 		this.start = function() {
 			showPage("homepage");
 			playlistForm = new PlaylistForm(document.getElementById("checkBoxContainer"));
@@ -759,14 +747,16 @@
 			playlistMessage = new PlaylistMessage(document.getElementById("playlistNameMessage"));
 			songsInPlaylist = new SongsInPlaylist(document.getElementById("songTableError"), document.getElementById("songTable"), document.getElementById("songTableBody"));
 			songsNotInPlaylist = new SongsNotInPlaylist(document.getElementById("addSongError"), document.getElementById("addSongToPlaylistFieldset"),
-				document.getElementById("addSongToPlaylistDiv"), document.getElementById("addSongToPlaylist"))
+				document.getElementById("addSongToPlaylistDiv"), document.getElementById("songId"))
 
 			nextButton = new NextButton(document.getElementById("next"));
 			document.getElementById("next").onclick = function() {
+				pageHandler.resetErrors();
 				songsInPlaylist.update(songsInPlaylist.block + 1);
 			}
 			previousButton = new PreviousButton(document.getElementById("previous"))
 			document.getElementById("previous").onclick = function() {
+				pageHandler.resetErrors();
 				songsInPlaylist.update(songsInPlaylist.block - 1);
 			}
 
@@ -779,13 +769,19 @@
 
 
 			document.getElementById("goToSortingPageButton").onclick = function() {
+				pageHandler.resetErrors();
+				sortingList.setPlaylistId(songsInPlaylist.playlistId);
 				showPage("sortingpage");
 				sortingList.show();
+				
 			}
 			document.getElementById("goToMainPageButton").onclick = function() {
+				pageHandler.resetErrors();
+				sortingList.reset();
 				showPage("homepage");
 			}
 			document.getElementById("goToPlaylistPageButton").onclick = function() {
+				pageHandler.resetErrors();
 				songsInPlaylist.update(0);
 				songsNotInPlaylist.show(songInfos.playlistId);
 				showPage("playlistpage");
@@ -793,6 +789,7 @@
 				playlistMessage.show();
 			}
 			document.getElementById("goToHomepageButton").onclick = function() {
+				pageHandler.resetErrors();
 				showPage("homepage");
 			}
 			
@@ -809,14 +806,7 @@
 
 		}
 
-		this.resetErrors = function() {
-			document.getElementById("createPlaylistError").textContent = "";
-			document.getElementById("songError").textContent = "";
-			document.getElementById("songTableError").textContent = "";
-			document.getElementById("addSongError").textContent = "";
-			document.getElementById("songError").textContent = "";
-			document.getElementById("sortingError").textContent = "";
-		}
+		
 
 
 	}

@@ -14,8 +14,7 @@
                 if (request.readyState == XMLHttpRequest.DONE) {
                     switch (request.status) {
                         case 200:
-                            // Come back to the home page
-                            console.log("test");
+                            // Come back to the playlistpage
                             songsInPlaylist.show(songsInPlaylist.playlistId);
                             showPage("playlistpage");
                             break;

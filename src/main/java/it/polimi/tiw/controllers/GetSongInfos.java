@@ -73,7 +73,7 @@ public class GetSongInfos extends HttpServlet {
 				sId = Integer.parseInt(songId);
 				pId = Integer.parseInt(playlistId);
 
-				int prpva = user.getIdUser();
+				
 				// Check if the player has this song --> Check if the song exists
 				if (!sDao.findSongByUserId(sId, user.getIdUser())) {
 					error += "Song doesn't exist";

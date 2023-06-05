@@ -37,7 +37,7 @@ public class AddSongToPlaylist extends HttpServlet{
 	
 	public void doPost(HttpServletRequest request , HttpServletResponse response)throws ServletException,IOException{
 		String playlistId = StringEscapeUtils.escapeJava(request.getParameter("playlistId"));
-		String songId = StringEscapeUtils.escapeJava(request.getParameter("addSongToPlaylist"));
+		String songId = StringEscapeUtils.escapeJava(request.getParameter("songId"));
 		String error = "";
 		int pId = -1;
 		int sId = -1;
