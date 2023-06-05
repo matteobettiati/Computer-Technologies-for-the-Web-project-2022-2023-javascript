@@ -54,7 +54,9 @@
 								let songsToShow = JSON.parse(request.responseText);
 
 								if (songsToShow.length == 0) {
-									document.getElementById("songsToAddError").textContent = "No songs yet";
+									document.getElementById("playlistForm").style.display = "none";
+									document.getElementById("createPlaylistError").textContent = "No songs yet";
+									document.getElementById("createPlaylistField").style.display = "";
 									return;
 								}
 								songsToShow.forEach(function(song) {
@@ -634,7 +636,7 @@
 
 								if (playlistsToShow.length == 0) {
 									document.getElementById("playlistTableMessage").textContent = "No playlist yet";
-									self.listContainer.style.display = "none";
+									self.playlistContainer.style.display = "none";
 									return;
 								}
 								document.getElementById("playlistTableMessage").textContent = "";
@@ -778,10 +780,13 @@
 				showPage("homepage");
 			}
 			document.getElementById("goToPlaylistPageButton").onclick = function() {
+				showPage("playlistpage");
 				pageHandler.resetErrors();
 				songsInPlaylist.update(0);
 				songsNotInPlaylist.show(songInfos.playlistId);
-				showPage("playlistpage");
+				document.getElementById("addSongTolaylistDiv").style.display = "block";
+				playlistMessage.show();
+				
 				document.getElementById("addSongToPlaylistDiv").style.display = "block";
 				playlistMessage.show();
 			}
@@ -795,7 +800,7 @@
 
 
 			playlists = new Playlists(document.getElementById("alertContainer"),
-				document.getElementById("playlistContainer"), document.getElementById("playlistsContainerBody"));
+				document.getElementById("playlistsContainer"), document.getElementById("playlistsContainerBody"));
 
 			playlists.show();
 

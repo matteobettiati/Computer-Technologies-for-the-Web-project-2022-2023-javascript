@@ -16,7 +16,7 @@ public class UserDAO {
 	
 	public User checkUser(String username, String password) throws SQLException {
 		User user = null;
-		String query = "SELECT ID FROM user WHERE username = ? and password = ?";
+		String query = "SELECT ID, username FROM user WHERE username = ? and password = ?";
 		ResultSet result = null;
 		PreparedStatement pstatement = null;
 		
@@ -28,7 +28,7 @@ public class UserDAO {
 			while (result.next()) {
 				user = new User();
 				user.setIdUser(result.getInt("id"));
-				user.setPassword(result.getString("password"));
+				//user.setPassword(result.getString("password"));
 				user.setUsername(result.getString("username"));
 			}
 		} catch (SQLException e) {

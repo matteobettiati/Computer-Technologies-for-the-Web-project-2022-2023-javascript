@@ -4,6 +4,7 @@
 (function() {
 	document.getElementById("uploadSongButton").onclick = function(e) {
 		e.preventDefault();
+		document.getElementById("playlistForm").style.display = "block";
 		console.log("Upload a new song");
 
 		//Take the closest form
