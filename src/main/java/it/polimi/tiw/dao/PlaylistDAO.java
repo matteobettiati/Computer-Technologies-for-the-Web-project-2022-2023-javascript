@@ -60,7 +60,7 @@ public class PlaylistDAO {
 	}
 
 	public boolean getPlaylistByID(int playlistID) throws SQLException {
-		String query = "SELECT * FROM playlist WHERE ID = ?";
+		String query = "SELECT ID FROM playlist WHERE ID = ?";
 		ResultSet result = null;
 		PreparedStatement pstatement = null;
 
@@ -159,7 +159,7 @@ public class PlaylistDAO {
 
 	public boolean findPlaylistByTitle(String title, int userId) throws SQLException {
 
-		String query = "SELECT * FROM playlist WHERE title = ? AND userID = ?";
+		String query = "SELECT title FROM playlist WHERE title = ? AND userID = ?";
 		boolean result = false;
 		ResultSet resultSet = null;
 		PreparedStatement pStatement = null;
@@ -196,7 +196,7 @@ public class PlaylistDAO {
 
 	public boolean findPlaylistById(int playlistId, int userId) throws SQLException {
 
-		String query = "SELECT * FROM playlist WHERE ID = ? AND userID = ?";
+		String query = "SELECT ID FROM playlist WHERE ID = ? AND userID = ?";
 		boolean result = false;
 		ResultSet resultSet = null;
 		PreparedStatement pStatement = null;
@@ -296,13 +296,7 @@ public class PlaylistDAO {
 	}
 	
 	
-	/**
-	 * Method that inserts a new sorting of the playList in the playList table in the data base
-	 * @param pId is the id of the playList
-	 * @param jsonSorting is a string containing a jSon with song IDs in the new order
-	 * @return true if everything went good , false otherwise
-	 * @throws SQLException
-	 */
+
 	public boolean addSorting(int pId , String jsonSorting) throws SQLException{
 		String query = "UPDATE playlist SET Sorting = ? WHERE Id = ?";
 		int code = 0;
@@ -328,12 +322,7 @@ public class PlaylistDAO {
 		return (code > 0);
 	}
 	
-	/**
-	 * Method that take the sorting of a playList and convert the string into an arrayList
-	 * @param pId is the id of the playList to take the sorting
-	 * @return an arrayList of integer containing the songId in the order chose by the user
-	 * @throws SQLException
-	 */
+	
 	public ArrayList<Integer> getSorting(int pId) throws SQLException{
 		String query = "SELECT Sorting FROM playlist WHERE Id = ?";
 		PreparedStatement pStatement = null;

@@ -679,12 +679,11 @@
 			newRow.appendChild(cell1);
 
 			anchor.onclick = function(e) {
-
 				// setting empty array for the songs in the playlist
 				playlistSongsToOrder.reset();
-
+				//getting songs in playlist
 				songsInPlaylist.show(e.target.getAttribute("playlistId"));
-
+				//getting songs NOT in playlist
 				songsNotInPlaylist.show(e.target.getAttribute("playlistId"));
 
 
@@ -695,12 +694,10 @@
 				showPage("playlistpage");
 				document.getElementById("addSongToPlaylistDiv").style.display = "block";
 				playlistMessage.show();
-				//reset.resetHomepage();
 
 
 			}
-			//Disable the href of the anchor
-			//anchor.href = "#";
+			
 
 
 			var cell2 = document.createElement("td");

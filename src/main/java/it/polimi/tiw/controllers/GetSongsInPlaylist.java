@@ -121,7 +121,7 @@ public class GetSongsInPlaylist extends HttpServlet {
 
 					if(sorting != null) {
 						//Reorder the songs
-						for(Integer i : sorting) {
+						for(Integer i : sorting) { 
 							for(Song song : songsInPlaylist) {
 								if(song.getIDSong() == i) {
 									

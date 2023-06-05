@@ -16,7 +16,7 @@ public class UserDAO {
 	
 	public User checkUser(String username, String password) throws SQLException {
 		User user = null;
-		String query = "SELECT * FROM user WHERE username = ? and password = ?";
+		String query = "SELECT ID FROM user WHERE username = ? and password = ?";
 		ResultSet result = null;
 		PreparedStatement pstatement = null;
 		
@@ -50,9 +50,9 @@ public class UserDAO {
 		return user;
 	}
 
-	public boolean checkUsername(String username) throws SQLException {
+	private boolean checkUsername(String username) throws SQLException {
 		
-		String query = "SELECT * FROM user WHERE username = ?";
+		String query = "SELECT username FROM user WHERE username = ?";
 		ResultSet result = null;
 		PreparedStatement pstatement = null;
 		
