@@ -75,7 +75,7 @@ public class CreatePlaylistjs extends HttpServlet {
 				int playlistID = pDao.getLastID();
 				// add song to the new playlist
 				for (String song : selectedSongs) {
-					int songID = songDAO.getSongID(song);
+					int songID = songDAO.getSongID(song, user.getIdUser());
 					// insert into contains db
 					pDao.relateSong(songID, playlistID);
 					}

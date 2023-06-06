@@ -92,8 +92,8 @@ public class SongDAO {
 		return (code > 0); 
 	}
 	
-	public int getSongID(String song) throws SQLException {
-		String query = "SELECT * FROM song WHERE title = ?";
+	public int getSongID(String song, int userId) throws SQLException {
+		String query = "SELECT * FROM song WHERE title = ? AND userID = ?";
 		PreparedStatement pStatement = null;
 		ResultSet resultSet = null;
 		int songID = 0;
@@ -101,6 +101,7 @@ public class SongDAO {
 		try {
 			pStatement = connection.prepareStatement(query);
 			pStatement.setString(1,song);
+			pStatement.setInt(2, userId);
 			
 			resultSet = pStatement.executeQuery();
 			if (resultSet.next()) {
